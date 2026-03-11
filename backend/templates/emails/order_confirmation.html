@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Подтверждение заказа</title>
+    <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h2>Здравствуйте, {{ username }}!</h2>
+    <p>Ваш заказ #{{ order_id }} успешно оформлен.</p>
+    
+    <h3>Состав заказа:</h3>
+    <table>
+        <tr>
+            <th>Товар</th>
+            <th>Количество</th>
+            <th>Цена</th>
+            <th>Сумма</th>
+        </tr>
+        {% for item in items %}
+        <tr>
+            <td>{{ item.product_name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.price }} руб.</td>
+            <td>{{ item.total }} руб.</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="3" style="text-align: right;"><strong>Итого:</strong></td>
+            <td><strong>{{ total_price }} руб.</strong></td>
+        </tr>
+    </table>
+    
+    <h3>Адрес доставки:</h3>
+    <p>
+        {{ contact.city }}, {{ contact.street }} {{ contact.house }}
+        {% if contact.apartment %}, кв. {{ contact.apartment }}{% endif %}
+    </p>
+    <p>Телефон: {{ contact.phone }}</p>
+    
+    <h3>Статус заказа:</h3>
+    <p>{{ status }}</p>
+    
+    <p>Вы можете отслеживать статус заказа в <a href="{{ site_url }}/orders/{{ order_id }}/">личном кабинете</a>.</p>
+    
+    <hr>
+    <p>С уважением,<br>Команда Shop</p>
+</body>
+</html>
