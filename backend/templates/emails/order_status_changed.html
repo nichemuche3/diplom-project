@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Изменение статуса заказа</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .header { background-color: #2196F3; color: white; padding: 20px; text-align: center; }
+        .status { background-color: #e3f2fd; padding: 15px; margin: 20px 0; border-left: 4px solid #2196F3; font-size: 18px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th { background-color: #2196F3; color: white; padding: 12px; text-align: left; }
+        td { border: 1px solid #ddd; padding: 10px; }
+        .footer { margin-top: 30px; padding: 20px; text-align: center; color: #777; border-top: 1px solid #ddd; }
+        .button { display: inline-block; padding: 10px 20px; background-color: #2196F3; color: white; text-decoration: none; border-radius: 5px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Статус заказа #{{ order_id }} изменен</h1>
+    </div>
+    
+    <p>Здравствуйте, <strong>{{ customer.username }}</strong>!</p>
+    
+    <div class="status">
+        <strong>Новый статус заказа: {{ new_status }}</strong>
+    </div>
+    
+    <p><strong>Магазин:</strong> {{ shop_name }}</p>
+    
+    {% if items %}
+    <h3>Товары в заказе:</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Товар</th>
+                <th>Количество</th>
+                <th>Цена</th>
+                <th>Сумма</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.product_name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.price }} ₽</td>
+                <td>{{ item.total }} ₽</td>
+            </tr>
+            {% endfor %}
+            <tr style="font-weight: bold; background-color: #f5f5f5;">
+                <td colspan="3" style="text-align: right;">ИТОГО:</td>
+                <td>{{ total_price }} ₽</td>
+            </tr>
+        </tbody>
+    </table>
+    {% endif %}
+    
+    <p style="text-align: center;">
+        <a href="{{ site_url }}/orders/{{ order_id }}/" class="button">Отследить заказ</a>
+    </p>
+    
+    <div class="footer">
+        <p>С уважением,<br>Команда Shop</p>
+    </div>
+</body>
+</html>
